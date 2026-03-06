@@ -1,0 +1,192 @@
+[
+  {
+    "id": "_meta",
+    "name": "Uncertain Death",
+    "color": "#000000"
+  },
+  {
+    "id": "clockmaker",
+    "ability": "Du weißt zu Beginn, wie viele Schritte es vom Dämon zum nächsten Schergen sind.",
+    "first": "Gib ein Fingerzeichen.",
+    "flavor": "Störe mich nicht. Das Ticken muss weitergehen, denn der Kreis ist das Leben und enthält alle Dinge, alle Antworten, in seiner göttlichen Maschinerie. Ich muss arbeiten.",
+    "name": "Uhrmacher",
+    "team": "townsfolk"
+  },
+  {
+    "id": "grandmother",
+    "ability": "Du weißt zu Beginn, dass 1 Spieler gut ist & kennst seinen Charakter. Falls der Dämon ihn tötet, stirbst du ebenfalls.",
+    "first": "Zeige auf den Spieler, der das Enkelkind ist & zeige sein Charakterplättchen.",
+    "flavor": "Zieh dir eine Jacke an, wenn du rausgehst, Schätzelein. Und denk an deine Thermoskanne. Und deinen Schal. Du weißt, dass ich ein schwaches Herz habe. Was würde ich nur ohne dich tun, wenn du dich erkälten würdest...oder schlimmeres?",
+    "name": "Großmutter",
+    "other": "Falls der Dämon das Enkelkind getötet hat, stirbt auch die Großmutter. :reminder:",
+    "team": "townsfolk"
+  },
+  {
+    "id": "librarian",
+    "ability": "Du weißt zu Beginn, dass 1 von 2 Spielern ein bestimmter Außenseiter ist. (Oder dass keine mitspielen.)",
+    "first": "Zeige das Außenseiter-Plättchen. Zeige auf den *AUßENSEITER* und auf den *FALSCH*en Spieler.",
+    "flavor": "Gewiss, gnädige Frau, unter normalen Umständen dürften Sie den Codex Malificarium aus den Bibliotheksgewölben ausleihen. Allerdings scheinen Sie kein Mitglied zu sein.",
+    "name": "Bibliothekar",
+    "team": "townsfolk"
+  },
+  {
+    "id": "empath",
+    "ability": "Jede Nacht erfährst du, wie viele deiner 2 lebendigen Nachbarn böse sind.",
+    "first": "Gib ein Fingerzeichen.",
+    "flavor": "Meine Haut kribbelt. Etwas stimmt hier nicht. Ich spüre es.",
+    "name": "Empath",
+    "other": "Gib ein Fingerzeichen.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "fortuneteller",
+    "ability": "Wähle jede Nacht 2 Spieler: Du erfährst, ob 1 davon der Dämon ist. Es gibt 1 guten Spieler, der dir als Dämon erscheint.",
+    "first": "Die Wahrsagerin wählt 2 Spieler. Nicke, falls einer davon der Dämon (oder die *FALSCHE FÄHRTE*) ist.",
+    "flavor": "Ich spüre das große Böse in deiner Seele! Aber... das könnte auch nur dein Parfüm sein. Ich bin allergisch gegen Holunder.",
+    "name": "Wahrsagerin",
+    "other": "Die Wahrsagerin wählt 2 Spieler. Nicke, falls einer davon der Dämon (oder die *FALSCHE FÄHRTE*) ist.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "exorcist",
+    "ability": "Wähle jede Nacht* 1 Spieler (1 anderen als in der vorherigen Nacht): Falls du den Dämon wählst, erfährt er, wer du bist & wacht dann heute Nacht nicht auf.",
+    "flavor": "Wir vertreiben euch, jeden unreinen Geist, jede höllische Macht, jede Ausgeburt des Teufels, jeden Anhänger diabolischer Gruppen und Sekten, im Namen und durch die Kraft unseres Herrn Jesus Christus. Wir befehlen euch, weichet und fliehet hinfort, weit weg von der Kirche Gottes, von den Seelen, die Gott nach seinem Abbild schaffen und durch das kostbare Blut des göttlichen Lamms erlösen konnte.",
+    "name": "Exorzist",
+    "other": "Der Exorzist wählt einen Spieler. :reminder: Lasse den Exorzisten einschlafen. Falls der Exorzist den Dämon gewählt hat: Wecke den Dämon. Zeige das *DIESER CHARAKTER HAT DICH GEWÄHLT* Plättchen & das Exorzistplättchen. Zeige auf den Exorzisten.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "flowergirl",
+    "ability": "Jede Nacht* erfährst du, ob heute ein Dämon für eine Hinrichtung gestimmt hat.",
+    "flavor": "Die Veilchen von gestern sind verwelkt und gestorben, doch heute blüht mein Mohn.",
+    "name": "Blumenmädchen",
+    "other": "Entweder nicke oder schüttele den Kopf.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "oracle",
+    "ability": "Jede Nacht* erfährst du, wie viele tote Spieler böse sind.",
+    "flavor": "Nur die Auserwählten dürfen hinter den Schleier blicken. Die Toten sind ruhelos und sie zeigen schweigend auf den eisigen Norden.",
+    "name": "Orakel",
+    "other": "Gib ein Fingerzeichen.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "undertaker",
+    "ability": "Jede Nacht* erfährst du, welcher Charakter heute durch Hinrichtung gestorben ist.",
+    "flavor": "Hmmm... was haben wir hier? Der linke Stiefel ist bis zur Ferse abgetragen, mit Feuersteinsplittern unter der Zunge. Dies ist das Gewand eines Soldaten.",
+    "name": "Totengräber",
+    "other": "Falls heute ein Spieler durch Hinrichtung gestorben ist, zeige dem Totengräber dessen Charakterplättchen.",
+    "team": "townsfolk"
+  },
+  {
+    "id": "artist",
+    "ability": "Einmal im Spiel, während des Tages, stelle dem Erzähler geheim 1 beliebige Ja/Nein-Frage.",
+    "flavor": "Mon Dieu! C’est lumineux! Meine Arbeit, sie ist... wie sagt man... magnifique! Dieu est révélé! Oui.",
+    "name": "Künstler",
+    "team": "townsfolk"
+  },
+  {
+    "id": "slayer",
+    "ability": "Einmal im Spiel, während des Tages, wähle öffentlich 1 Spieler: Falls er der Dämon ist, stirbt er.",
+    "flavor": "Stirb!",
+    "name": "Dämonenjäger",
+    "team": "townsfolk"
+  },
+  {
+    "id": "seamstress",
+    "ability": "Einmal im Spiel, in der Nacht, wähle 2 Spieler (nicht dich selbst): Du erfährst, ob sie die gleiche Fraktion haben.",
+    "first": "Die Schneiderin wählt möglicherweise 2 Spieler. Nicke oder schüttele den Kopf. :reminder:",
+    "flavor": "Hast du gehört, dass der Fremde im Kaschmirmantel um unsere junge Belle geworben hat? Und sie hat ja gesagt? Das ist nichts im Vergleich zu dem, was Harry und der Jongleur auf dem Jahrmarkt gemacht haben! Was ich alles erzählen könnte, wenn ich aus dem Nähkästchen plauden würde... oh, ja.",
+    "name": "Schneiderin",
+    "other": "Die Schneiderin wählt möglicherweise 2 Spieler. Nicke oder schüttele den Kopf. :reminder:",
+    "team": "townsfolk"
+  },
+  {
+    "id": "monk",
+    "ability": "Wähle jede Nacht* 1 Spieler (nicht dich selbst): Er ist heute Nacht sicher vor dem Dämon.",
+    "flavor": "Es ist ein übler und tödlicher Wind, der heute Nacht weht. Komm, mein Bruder, suche Schutz in der Abtei, während der Sturm tobt. Bei meinem Wort oder bei meinem Leben, du wirst sicher sein.",
+    "name": "Mönch",
+    "other": "Der Mönch wählt einen Spieler. :reminder:",
+    "team": "townsfolk"
+  },
+  {
+    "id": "lunatic",
+    "ability": "Du denkst fälschlicherweise, dass du der Dämon bist. Der Dämon weiß, wer du bist & wen du in der Nacht gewählt hast.",
+    "first": "Falls 7 oder mehr Spieler mitspielen, wecke die Verrückte: Zeige das *DIES SIND DEINE SCHERGEN* Plättchen. Zeige auf beliebige Spieler. Zeige das *DIESE CHARAKTERE SIND NICHT IM SPIEL* Plättchen. Zeige 3 gute Charakterplättchen. Lasse die Verrückte einschlafen. Wecke den Dämon. Zeige das *DU BIST* Plättchen und das Dämonplättchen. Zeige das *DIESER SPIELER IST* Plättchen, zeige das Verrückteplättchen, zeige auf die Verrückte.",
+    "flavor": "Ich bin die Nacht… glaube ich.",
+    "name": "Verrückte",
+    "other": "Tue, was immer du tun musst, um das Handeln des Dämons zu simulieren. Lasse die Verrückte einschlafen. Wecke den Dämon. Zeige das Verrückteplättchen & zeige auf die Verrückte, zeige dann auf ihr(e) Ziel(e).",
+    "team": "outsider"
+  },
+  {
+    "id": "mutant",
+    "ability": "Falls du “besessen” davon bist, ein Außenseiter zu sein, könntest du hingerichtet werden.",
+    "flavor": "Ich bin kein Freak! Ich bin ein menschliches Wesen! Habt Erbarmen!",
+    "name": "Mutant",
+    "team": "outsider"
+  },
+  {
+    "id": "sweetheart",
+    "ability": "Wenn du stirbst, ist 1 Spieler ab jetzt betrunken.",
+    "flavor": "Ich werde sie nie vergessen. Niemals.",
+    "name": "Liebchen",
+    "other": "Falls das Liebchen gestorben ist, wurde sofort ein Spieler betrunken. Falls du dies noch nicht gemacht hast, mache es jetzt. :reminder:",
+    "team": "outsider"
+  },
+  {
+    "id": "recluse",
+    "ability": "Du erscheinst möglicherweise als böse & als Scherge oder Dämon, sogar wenn du tot bist.",
+    "flavor": "Verschwinde von meinem Grund und Boden, kapiert?! Grr... Ich bin dir schon auf den Fersen! Und lass bloß deine dreckigen Dämonenfinger von meiner Ernte… Mach, dass du Land gewinnst, und zwar flott!",
+    "name": "Einsiedler",
+    "team": "outsider"
+  },
+  {
+    "id": "godfather",
+    "ability": "Du weißt zu Beginn, welche Außenseiter im Spiel sind. Falls 1 Außenseiter heute starb, wähle heute Nacht 1 Spieler: Er stirbt. [-1 oder +1 Außenseiter]",
+    "first": "Zeige die Charakterplättchen aller Außenseiter, die im Spiel sind.",
+    "flavor": "Was habe ich dir getan, dass du mich so respektlos behandelst? Du kommst in mein Haus, am Hochzeitstag meiner Tochter und bittest mich, einen Mord zu begehen.",
+    "name": "Pate",
+    "other": "Falls heute ein Außenseiter gestorben ist, wählt der Pate einen Spieler. :reminder:",
+    "team": "minion"
+  },
+  {
+    "id": "assassin",
+    "ability": "Einmal im Spiel, in der Nacht*, wähle 1 Spieler: Er stirbt, selbst wenn er es aus irgendeinem Grund nicht könnte.",
+    "flavor": "...",
+    "name": "Meuchelmörder",
+    "other": "Der Meuchelmörder wählt möglicherweise einen Spieler. :reminder: :reminder:",
+    "team": "minion"
+  },
+  {
+    "id": "scarletwoman",
+    "ability": "Falls 5 oder mehr Spieler lebendig sind & der Dämon stirbt, wirst du zum Dämon. (Reisende zählen nicht.)",
+    "flavor": "Du hast mich in die Geheimnisse des Ordens der Purpurnen Flamme eingeweiht. Wir haben gemeinsam das Feuer gespürt und sind der Lust der Bestie verfallen. Ich bin für immer deine Dienerin... Aber heute Nacht bin ich deine Meisterin.",
+    "name": "Scharlachrote Frau",
+    "other": "Falls die Scharlachrote Frau heute zum Imp wurde, zeige ihr das *DU BIST* Plättchen, dann zeige das Impplättchen.",
+    "team": "minion"
+  },
+  {
+    "id": "marionette",
+    "name": "Marionette",
+    "ability": "Du glaubst, dass du eine gute Rolle bist, aber das bist du nicht. Der Dämon weiß, wer du bist. [Du sitzt neben dem Dämon]",
+    "team": "minion"
+  },
+  {
+    "id": "nodashii",
+    "ability": "Wähle jede Nacht* 1 Spieler: Er stirbt. Deine 2 benachbarten Bürger sind vergiftet.",
+    "flavor": "Bei den Sünden von Arnoch, ich spüre deinen üblen Gestank. Bei der verfluchten Sonne und ihrer fauligen Legion kleiner grinsender Götter, ich verderbe dich. Bei der gesegneten Nacht und den verborgenen Tiefen des grässlichen und unheiligen Meeres beende ich dein armseliges Leben auf dieser Existenzebene.",
+    "name": "No Dashii",
+    "other": "Die No Dashii wählt einen Spieler. :reminder:",
+    "team": "demon"
+  },
+  {
+    "id": "pukka",
+    "ability": "Wähle jede Nacht 1 Spieler: Er wird vergiftet. Der zuvor vergiftete Spieler stirbt & ist dann nicht mehr vergiftet.",
+    "first": "Die Pukka wählt einen Spieler. :reminder:",
+    "flavor": "Es war wirklich äußerst freundlich von Ihnen, mich in Ihrem trauten Heim willkommen zu heißen. Verzeihen Sie mir bitte, dass ich Sie gekratzt habe. Ist nur ein kleiner Kratzer. Bitte nehmt diesen goldenen Zahnstocher als bescheidene Geste meines Bedauerns.",
+    "name": "Pukka",
+    "other": "Die Pukka wählt einen Spieler. :reminder: Der zuvor vergiftete Spieler stirbt und ist dann nicht mehr vergiftet. :reminder:",
+    "team": "demon"
+  }
+]

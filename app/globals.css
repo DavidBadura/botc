@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: "LHF Unlovable";
+  src: url("/font/46887ce1dc738fc2de8f66db681c14ee.woff2") format("woff2"),
+       url("/font/46887ce1dc738fc2de8f66db681c14ee.woff") format("woff"),
+       url("/font/46887ce1dc738fc2de8f66db681c14ee.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #1f0e1d;
+  --foreground: #f7f1e5;
+  font-size: 14px;
 }
 
 @theme inline {
@@ -12,15 +23,8 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
 }
