@@ -1,30 +1,65 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: "LHF Unlovable";
-  src: url("/font/46887ce1dc738fc2de8f66db681c14ee.woff2") format("woff2"),
-       url("/font/46887ce1dc738fc2de8f66db681c14ee.woff") format("woff"),
-       url("/font/46887ce1dc738fc2de8f66db681c14ee.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+    font-family: "LHFUnlovable";
+    src: url("/font/46887ce1dc738fc2de8f66db681c14ee.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "TradeGothicLTPro";
+    src: url("/font/f8548c3da7588aeaa91dd7661ceb4d2e.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Dumbledor";
+    src: url("/font/dumbledor.woff2") format("woff2");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
 :root {
-  --background: #1f0e1d;
-  --foreground: #f7f1e5;
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+    --color-gold: #B8962E;
+    --font-title: "LHFUnlovable", sans-serif;
+    --font-text: "TradeGothicLTPro", sans-serif;
+    --font-fancy: "Dumbledor", sans-serif;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  min-height: 100vh;
+    background: #1f0e1d;
+    min-height: 100vh;
+}
+
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+
+    body {
+        margin: 0;
+        background: #fff;
+    }
+
+    .print-page {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        break-after: page;
+        page-break-after: always;
+    }
+
+    .print-page:last-of-type {
+        break-after: auto;
+        page-break-after: auto;
+    }
 }
