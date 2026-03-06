@@ -1,0 +1,3 @@
+[submodule "botc-translations"]
+	path = botc-translations
+	url = git@github.com:ThePandemoniumInstitute/botc-translations.git
