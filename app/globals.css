@@ -28,6 +28,11 @@
     font-size: 14px;
 }
 
+* {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+}
+
 @theme inline {
     --color-gold: #B8962E;
     --font-title: "LHFUnlovable", sans-serif;

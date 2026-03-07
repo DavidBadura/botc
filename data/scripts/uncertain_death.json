@@ -170,7 +170,8 @@
     "id": "marionette",
     "name": "Marionette",
     "ability": "Du glaubst, dass du eine gute Rolle bist, aber das bist du nicht. Der Dämon weiß, wer du bist. [Du sitzt neben dem Dämon]",
-    "team": "minion"
+    "team": "minion",
+    "first": "Wecke den Dämon. Zeige das *DIESER SPIELER IST* Plättchen und das Marionetteplättchen. Zeige auf die Marionette."
   },
   {
     "id": "nodashii",
