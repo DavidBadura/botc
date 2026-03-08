@@ -1,7 +1,8 @@
 import script from "@/data/scripts/uncertain_death.json";
 import images from "@/data/images.json";
 import Image from "next/image";
-import Color, {ColorInstance, ColorLike} from "color";
+import Color, {ColorInstance} from "color";
+import type { Metadata } from 'next';
 
 type Script = Item[];
 
@@ -22,6 +23,12 @@ type Character = {
 }
 
 const accentColor: ColorInstance = Color('#162456');
+
+const patternStyle = {
+    backgroundImage: `url(/api/${accentColor.hex().slice(1)}/pattern)`,
+    backgroundRepeat: 'repeat',
+    backgroundColor: accentColor.toString()
+};
 
 type Team = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveller' | 'fabled' | 'loric';
 
@@ -226,17 +233,6 @@ const otherNightOrder = [
     "leviathan"
 ];
 
-
-function getGradient(baseColor: ColorLike) {
-    try {
-        const color = Color(baseColor);
-        const lighter = color.lighten(0.8);
-        return `linear-gradient(to top right, ${baseColor}, ${lighter})`;
-    } catch {
-        return `linear-gradient(to top right, ${baseColor}, ${baseColor})`;
-    }
-}
-
 function findMeta(script: Script): Meta | undefined {
     return script.find((s) => s.id === "_meta") as Meta | undefined;
 }
@@ -379,6 +375,15 @@ function highlight(text: string) {
     return text;
 }
 
+export function generateMetadata(): Metadata {
+    const s = script as Script;
+    const meta = findMeta(s);
+
+    return {
+        title: meta?.name || 'Unknown'
+    };
+}
+
 export default function Page() {
     const s = script as Script;
     const meta = findMeta(s);
@@ -386,15 +391,11 @@ export default function Page() {
     return (
         <>
             <NormalPage>
-                <div className="w-16 h-full absolute top-0 left-0 -z-10"
-                     style={{
-                         backgroundImage: 'url(/assets/pattern.jpg)',
-                         backgroundSize: '200px',
-                         backgroundBlendMode: 'multiply',
-                         backgroundColor: accentColor.toString()
-                     }}>
+                <div className="w-16 h-full"
+                     style={patternStyle}
+                >
                 </div>
-                <div className="flex-1">
+                <div className="flex-1 -ml-16 flex flex-col">
                     <Header meta={meta}/>
                     <Section title="Bürger" characters={findCharactersByTeam(s, 'townsfolk')}/>
                     <Divider/>
@@ -403,8 +404,8 @@ export default function Page() {
                     <Section title="Schergen" characters={findCharactersByTeam(s, 'minion')}/>
                     <Divider/>
                     <Section title="Dämonen" characters={findCharactersByTeam(s, 'demon')}/>
+                    <Footer/>
                 </div>
-                <Footer/>
             </NormalPage>
             <FancyPage>
                 <header className="text-center">
@@ -416,18 +417,13 @@ export default function Page() {
                 </header>
             </FancyPage>
             <NormalPage>
-                <div className="flex w-full">
+                <div className="flex w-full relative">
                     <div className="flex-1 flex flex-col py-4">
                         {firstNight(s).map((stepData) => (<Step stepData={stepData}/>))}
                         <FooterLogo meta={meta}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
-                         style={{
-                             backgroundImage: 'url(/assets/pattern.jpg)',
-                             backgroundSize: '200px',
-                             backgroundBlendMode: 'multiply',
-                             backgroundColor: accentColor.toString()
-                         }}>
+                         style={patternStyle}>
                         <h2 className="mt-16 text-2xl uppercase font-bold font-fancy [writing-mode:vertical-rl] [text-orientation:upright] text-gold">
                             Erste Nacht
                         </h2>
@@ -441,12 +437,7 @@ export default function Page() {
                         <FooterLogo meta={meta}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
-                         style={{
-                             backgroundImage: 'url(/assets/pattern.jpg)',
-                             backgroundSize: '200px',
-                             backgroundBlendMode: 'multiply',
-                             backgroundColor: accentColor.toString()
-                         }}>
+                         style={patternStyle}>
                         <h2 className="mt-16 text-2xl uppercase font-bold font-fancy [writing-mode:vertical-rl] [text-orientation:upright] text-gold">
                             Weitere Nächte
                         </h2>
@@ -471,12 +462,7 @@ function FancyPage({children}: { children: React.ReactNode }) {
     return (
         <main
             className="print-page w-[210mm] h-[297mm] mx-auto my-8 bg-white shadow-lg print:shadow-none print:m-0 text-xs text-black flex relative isolate overflow-hidden font-light items-center justify-center"
-            style={{
-                backgroundImage: 'url(/assets/pattern.jpg)',
-                backgroundSize: '200px',
-                backgroundBlendMode: 'multiply',
-                backgroundColor: accentColor.toString()
-            }}
+            style={patternStyle}
         >
             {children}
         </main>
@@ -486,22 +472,19 @@ function FancyPage({children}: { children: React.ReactNode }) {
 function Header({meta}: { meta: Meta | undefined }) {
     return (
         <header className="ml-16 mt-8 text-center">
-            <h1
-                className="text-6xl mt-4 bg-clip-text text-transparent print:text-blue-950 print:bg-none font-title"
-                style={{
-                    backgroundImage: getGradient(accentColor)
-                }}
-            >
-                {meta?.name || 'Unknown'}
-            </h1>
+            <img
+                src={`/api/${accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
+                alt={meta?.name || 'Unknown'}
+                className="h-24 mx-auto"
+            />
         </header>
     );
 }
 
 function Footer() {
     return (
-        <footer className="absolute bottom-0 left-0 right-0 text-center text-xs">
-            <div className="ml-16 py-4">
+        <footer className="flex-1 flex items-end justify-center">
+            <div className="ml-16 py-4 text-center">
                 <p>*nicht in der ersten Nacht</p>
                 <p className="text-gray-600">&copy; David Badura</p>
             </div>
@@ -513,15 +496,12 @@ function FooterLogo({meta}: { meta: Meta | undefined }) {
     if (!meta) return null;
 
     return (
-        <footer className="flex-1 self-end flex items-end justify-center px-8">
-                <span
-                    className="text-2xl bg-clip-text text-transparent print:text-blue-950 print:bg-none font-title"
-                    style={{
-                        backgroundImage: getGradient(accentColor)
-                    }}
-                >
-                    {meta.name}
-                </span>
+        <footer className="flex-1 self-end flex items-end justify-center">
+            <img
+                src={`/api/${accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
+                alt={meta?.name || 'Unknown'}
+                className="h-8"
+            />
         </footer>
     );
 }
