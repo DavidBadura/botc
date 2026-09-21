@@ -10,7 +10,8 @@
     "start": "next start",
     "lint": "eslint",
     "translations": "node bin/fetch-translations.ts",
-    "game-data": "node bin/fetch-game-data.ts"
+    "game-data": "node bin/fetch-game-data.ts",
+    "update-data": "pnpm game-data && pnpm translations"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
