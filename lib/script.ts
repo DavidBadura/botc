@@ -1,4 +1,5 @@
 import roles from '@/data/roles.json';
+import jinxes from '@/data/jinxes.json';
 
 export type Team = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveller' | 'fabled' | 'loric';
 
@@ -16,6 +17,11 @@ export type ScriptCharacter = {
     ability: string,
     first?: string,
     other?: string,
+}
+
+export type ScriptJinx = {
+    characters: [ScriptCharacter, ScriptCharacter],
+    text: string,
 }
 
 export type Item = ScriptCharacter | Meta;
@@ -88,6 +94,27 @@ export function resolveScript(script: RawScript, t: RoleTranslator): Script {
             ability: text('ability') ?? '',
             first: text('first'),
             other: text('other'),
+        });
+    }
+
+    return result;
+}
+
+// The jinxes between the characters of a script, texts come from the `jinxes` namespace (keys like alchemist-boffin).
+export function resolveJinxes(script: Script, t: RoleTranslator): ScriptJinx[] {
+    const characters = new Map(script.filter((item): item is ScriptCharacter => item.id !== '_meta').map((c) => [c.id, c]));
+    const result: ScriptJinx[] = [];
+
+    for (const jinx of jinxes) {
+        const [a, b] = jinx.roles.map((id) => characters.get(id));
+        if (!a || !b) {
+            continue;
+        }
+
+        const key = jinx.roles.join('-');
+        result.push({
+            characters: [a, b],
+            text: t.has(key) ? t(key) : jinx.reason,
         });
     }
 

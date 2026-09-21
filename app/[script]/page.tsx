@@ -4,11 +4,11 @@ import type { Metadata } from 'next';
 import {useTranslations} from "next-intl";
 import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
-import {findRawMeta, resolveScript} from "@/lib/script";
+import {findRawMeta, resolveJinxes, resolveScript} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
 import {getTheme} from "@/lib/theme";
 import type {Theme} from "@/lib/theme";
-import type {Meta, Script, ScriptCharacter, Team} from "@/lib/script";
+import type {Meta, Script, ScriptCharacter, ScriptJinx, Team} from "@/lib/script";
 
 const images: Record<string, string> = imagesJson;
 
@@ -381,6 +381,7 @@ export default async function Page({params}: Props) {
     }
 
     const s = resolveScript(raw, await getTranslations('roles'));
+    const jinxes = resolveJinxes(s, await getTranslations('jinxes'));
     const meta = findMeta(s);
     const theme = getTheme(slug);
 
@@ -411,6 +412,7 @@ export default async function Page({params}: Props) {
                         {meta?.name || 'Unknown'}
                     </h1>
                 </header>
+                <Jinxes jinxes={jinxes}/>
             </FancyPage>
             <NormalPage>
                 <div className="flex w-full relative">
@@ -513,6 +515,42 @@ function Section({title, characters}: { title: string, characters: ScriptCharact
             <div className="grid grid-cols-2 flex-1 px-4">
                 {characters.map((character) => (
                     <Character key={character.id} character={character}/>
+                ))}
+            </div>
+        </section>
+    );
+}
+
+function Jinxes({jinxes}: { jinxes: ScriptJinx[] }) {
+    if (jinxes.length === 0) return null;
+
+    return (
+        <section
+            className="absolute inset-x-16 bottom-16 rounded-sm px-6 py-4 shadow-lg"
+            style={{backgroundImage: 'url(/assets/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}>
+            <h2 className="mb-2 text-center uppercase font-bold font-fancy text-gold">Jinxes</h2>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+                {jinxes.map((jinx) => (
+                    <div key={jinx.characters.map((c) => c.id).join('-')} className="flex items-center gap-2">
+                        <div className="flex w-20 shrink-0">
+                            {jinx.characters.map((character) => (
+                                <img
+                                    key={character.id}
+                                    className="w-10 h-10 object-contain"
+                                    src={images[character.id]}
+                                    alt={character.name}
+                                />
+                            ))}
+                        </div>
+                        <div className="flex-1">
+                            <h3 className="font-bold font-text">
+                                <span className={teamTextColors[jinx.characters[0].team]}>{jinx.characters[0].name}</span>
+                                {' & '}
+                                <span className={teamTextColors[jinx.characters[1].team]}>{jinx.characters[1].name}</span>
+                            </h3>
+                            <p className="font-text" dangerouslySetInnerHTML={{__html: highlight(jinx.text)}}></p>
+                        </div>
+                    </div>
                 ))}
             </div>
         </section>
