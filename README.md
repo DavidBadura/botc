@@ -11,7 +11,7 @@ pnpm install
 pnpm dev
 ```
 
-The translations come from Weblate (translation.botc.app). To update them:
+The translations come from the [botc-translations](https://github.com/ThePandemoniumInstitute/botc-translations) repo. To update them:
 
 ```
 pnpm translations        # de
