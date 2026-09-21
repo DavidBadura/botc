@@ -402,7 +402,7 @@ export default async function Page() {
             <NormalPage>
                 <div className="flex w-full relative">
                     <div className="flex-1 flex flex-col py-4">
-                        {firstNight(s).map((stepData) => (<Step stepData={stepData}/>))}
+                        {firstNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
                         <FooterLogo meta={meta}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
@@ -416,7 +416,7 @@ export default async function Page() {
             <NormalPage>
                 <div className="flex w-full">
                     <div className="flex flex-col flex-1 py-4">
-                        {otherNight(s).map((stepData) => (<Step stepData={stepData}/>))}
+                        {otherNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
                         <FooterLogo meta={meta}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
