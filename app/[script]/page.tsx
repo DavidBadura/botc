@@ -1,7 +1,6 @@
 import nightSheet from "@/data/nightsheet.json";
 import Image from "next/image";
 import type { Metadata } from 'next';
-import {useTranslations} from "next-intl";
 import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
 import {findRawMeta, iconPath, resolveJinxes, resolveScript} from "@/lib/script";
@@ -348,10 +347,6 @@ function Divider() {
 }
 
 function Character({character}: { character: ScriptCharacter }) {
-    'use client'
-
-    const t = useTranslations();
-
     return (
         <div className="flex items-center gap-2">
             <div className="w-20 h-20 shrink-0">
@@ -360,8 +355,8 @@ function Character({character}: { character: ScriptCharacter }) {
                     height={64}
                     className="w-full h-full object-contain"
                     src={iconPath(character.id)}
+                    alt={character.name}
                 />
-
             </div>
             <div className="flex-1">
                 <h3 className={classNames(
