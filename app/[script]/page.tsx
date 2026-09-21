@@ -1,23 +1,15 @@
 import imagesJson from "@/data/images.json";
 import Image from "next/image";
-import Color, {ColorInstance} from "color";
 import type { Metadata } from 'next';
 import {useTranslations} from "next-intl";
 import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
 import {findRawMeta, resolveScript} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
+import {accentColor, patternStyle} from "@/lib/theme";
 import type {Meta, Script, ScriptCharacter, Team} from "@/lib/script";
 
 const images: Record<string, string> = imagesJson;
-
-const accentColor: ColorInstance = Color('#162456');
-
-const patternStyle = {
-    backgroundImage: `url(/api/${accentColor.hex().slice(1)}/pattern)`,
-    backgroundRepeat: 'repeat',
-    backgroundColor: accentColor.toString()
-};
 
 const teamTextColors: Record<Team, string> = {
     townsfolk: 'text-sky-800',
