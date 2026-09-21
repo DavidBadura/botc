@@ -11,6 +11,7 @@
     "lint": "eslint",
     "translations": "node bin/fetch-translations.ts",
     "game-data": "node bin/fetch-game-data.ts",
+    "import-script": "node bin/import-script.ts",
     "test": "vitest run",
     "update-data": "pnpm game-data && pnpm translations"
   },
