@@ -11,6 +11,7 @@
     "lint": "eslint",
     "translations": "node bin/fetch-translations.ts",
     "game-data": "node bin/fetch-game-data.ts",
+    "test": "vitest run",
     "update-data": "pnpm game-data && pnpm translations"
   },
   "dependencies": {
@@ -32,6 +33,7 @@
     "eslint": "^9.39.4",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4.2.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.1"
   }
 }
