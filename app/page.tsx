@@ -1,28 +1,12 @@
-import script from "@/data/scripts/uncertain_death.json";
+import script from "@/data/scripts/uncertain_death2.json";
 import images from "@/data/images.json";
 import Image from "next/image";
 import Color, {ColorInstance} from "color";
 import type { Metadata } from 'next';
 import {useTranslations} from "next-intl";
-
-type Script = Item[];
-
-type Item = Character | Meta;
-
-type Meta = {
-    id: '_meta',
-    name: string,
-}
-
-type Character = {
-    id: string,
-    name: string,
-    englishName: string,
-    team: Team,
-    ability: string,
-    first?: string,
-    other?: string,
-}
+import {getTranslations} from "next-intl/server";
+import {findRawMeta, resolveScript} from "@/lib/script";
+import type {Meta, Script, ScriptCharacter, Team} from "@/lib/script";
 
 const accentColor: ColorInstance = Color('#162456');
 
@@ -31,8 +15,6 @@ const patternStyle = {
     backgroundRepeat: 'repeat',
     backgroundColor: accentColor.toString()
 };
-
-type Team = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveller' | 'fabled' | 'loric';
 
 const teamTextColors: Record<Team, string> = {
     townsfolk: 'text-sky-800',
@@ -57,7 +39,7 @@ const teamBorderColors: Record<Team, string> = {
 const firstNightOrder = [
     "dusk",
     "angel",
-    "budhist",
+    "buddhist",
     "toymaker",
     "stormcatcher",
     "wraith",
@@ -239,11 +221,11 @@ function findMeta(script: Script): Meta | undefined {
     return script.find((s) => s.id === "_meta") as Meta | undefined;
 }
 
-function findCharacters(script: Script): Character[] {
-    return script.filter((s) => s.id !== "_meta") as Character[];
+function findCharacters(script: Script): ScriptCharacter[] {
+    return script.filter((s) => s.id !== "_meta") as ScriptCharacter[];
 }
 
-function findCharactersByTeam(script: Script, team: Team): Character[] {
+function findCharactersByTeam(script: Script, team: Team): ScriptCharacter[] {
     return findCharacters(script).filter((s) => s.team === team);
 }
 
@@ -378,8 +360,7 @@ function highlight(text: string) {
 }
 
 export function generateMetadata(): Metadata {
-    const s = script as Script;
-    const meta = findMeta(s);
+    const meta = findRawMeta(script);
 
     return {
         title: meta?.name || 'Unknown'
@@ -387,7 +368,7 @@ export function generateMetadata(): Metadata {
 }
 
 export default async function Page() {
-    const s = script as Script;
+    const s = resolveScript(script, await getTranslations('roles'));
     const meta = findMeta(s);
 
     return (
@@ -508,7 +489,7 @@ function FooterLogo({meta}: { meta: Meta | undefined }) {
     );
 }
 
-function Section({title, characters}: { title: string, characters: Character[] }) {
+function Section({title, characters}: { title: string, characters: ScriptCharacter[] }) {
     return (
         <section className="flex relative">
             <div className="w-16 shrink-0 flex items-center justify-center">
@@ -538,7 +519,7 @@ function Divider() {
     );
 }
 
-function Character({character}: { character: Character }) {
+function Character({character}: { character: ScriptCharacter }) {
     'use client'
 
     const t = useTranslations();

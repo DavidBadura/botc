@@ -2,11 +2,14 @@
   "name": "botc",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@9.15.9",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "translations": "node bin/fetch-translations.ts",
+    "roles": "node bin/fetch-roles.ts"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",
