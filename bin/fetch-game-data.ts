@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-// Official game data (roles and jinxes), used to resolve scripts at runtime.
+// Official game data (roles, jinxes and night order), used to resolve scripts at runtime.
 // Usage: node bin/fetch-game-data.ts
 const BASE_URL = 'https://raw.githubusercontent.com/ThePandemoniumInstitute/botc-release/main/resources/data';
 const DATA_DIR = path.join(import.meta.dirname, '..', 'data');
@@ -15,6 +15,11 @@ interface Role {
 interface JinxSource {
   id: string;
   jinx: { id: string, reason: string }[];
+}
+
+interface NightSheet {
+  firstNight: string[];
+  otherNight: string[];
 }
 
 interface Jinx {
@@ -61,9 +66,16 @@ async function fetchJinxes(): Promise<void> {
   console.log(`Successfully saved ${jinxes.length} jinxes to ${save('jinxes.json', jinxes)}`);
 }
 
+async function fetchNightSheet(): Promise<void> {
+  const { firstNight, otherNight } = await fetchJson<NightSheet>('nightsheet.json');
+
+  console.log(`Successfully saved the night order to ${save('nightsheet.json', { firstNight, otherNight })}`);
+}
+
 async function main(): Promise<void> {
   await fetchRoles();
   await fetchJinxes();
+  await fetchNightSheet();
 }
 
 main().catch((error) => {
