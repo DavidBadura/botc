@@ -28,24 +28,22 @@ export async function GET(
 
     // Generate SVG with satori
     const svg = await satori(
-      {
-        type: 'div',
-        props: {
-          style: {
-            display: 'flex',
-            width: '100%',
-            height: '100%',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: 100,
-            backgroundImage: `linear-gradient(to top right, ${baseColor.hex()}, ${lighterColor.hex()})`,
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            color: 'transparent',
-          },
-          children: decodedTitle,
-        },
-      },
+      <div
+        style={{
+          display: 'flex',
+          width: '100%',
+          height: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: 100,
+          backgroundImage: `linear-gradient(to top right, ${baseColor.hex()}, ${lighterColor.hex()})`,
+          backgroundClip: 'text',
+          WebkitBackgroundClip: 'text',
+          color: 'transparent',
+        }}
+      >
+        {decodedTitle}
+      </div>,
       {
         width: 800,
         height: 150,
@@ -65,7 +63,7 @@ export async function GET(
       .png()
       .toBuffer()
 
-    return new NextResponse(pngBuffer, {
+    return new NextResponse(new Uint8Array(pngBuffer), {
       headers: {
         'Content-Type': 'image/png',
         'Cache-Control': 'public, max-age=31536000, immutable',
