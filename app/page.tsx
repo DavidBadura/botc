@@ -1,8 +1,7 @@
 import Link from "next/link";
 import type {Metadata} from "next";
 import {getTranslations} from "next-intl/server";
-import images from "@/data/images.json";
-import {findRawMeta, resolveScript} from "@/lib/script";
+import {findRawMeta, iconPath, resolveScript} from "@/lib/script";
 import type {ScriptCharacter, Team} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
 import {getTheme} from "@/lib/theme";
@@ -10,8 +9,6 @@ import {getTheme} from "@/lib/theme";
 export const metadata: Metadata = {
     title: 'Scripts',
 };
-
-const iconUrls: Record<string, string> = images;
 
 const MAX_ICONS = 5;
 
@@ -74,7 +71,7 @@ export default async function Home() {
                                     {characters.slice(0, MAX_ICONS).map((character) => (
                                         <img
                                             key={character.id}
-                                            src={iconUrls[character.id]}
+                                            src={iconPath(character.id)}
                                             alt={character.name}
                                             title={character.name}
                                             width={36}

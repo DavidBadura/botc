@@ -1,17 +1,14 @@
-import imagesJson from "@/data/images.json";
 import nightSheet from "@/data/nightsheet.json";
 import Image from "next/image";
 import type { Metadata } from 'next';
 import {useTranslations} from "next-intl";
 import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
-import {findRawMeta, resolveJinxes, resolveScript} from "@/lib/script";
+import {findRawMeta, iconPath, resolveJinxes, resolveScript} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
 import {getTheme} from "@/lib/theme";
 import type {Theme} from "@/lib/theme";
 import type {Meta, Script, ScriptCharacter, ScriptJinx, Team} from "@/lib/script";
-
-const images: Record<string, string> = imagesJson;
 
 const teamTextColors: Record<Team, string> = {
     townsfolk: 'text-sky-800',
@@ -103,7 +100,7 @@ function nightSteps(script: Script, night: Night): StepData[] {
         }
 
         return [{
-            image: images[character.id],
+            image: iconPath(character.id),
             title: character.name,
             textColorClass: teamTextColors[character.team],
             borderColorClass: teamBorderColors[character.team],
@@ -317,7 +314,7 @@ function Jinxes({jinxes}: { jinxes: ScriptJinx[] }) {
                                 <img
                                     key={character.id}
                                     className="w-10 h-10 object-contain"
-                                    src={images[character.id]}
+                                    src={iconPath(character.id)}
                                     alt={character.name}
                                 />
                             ))}
@@ -362,7 +359,7 @@ function Character({character}: { character: ScriptCharacter }) {
                     width={64}
                     height={64}
                     className="w-full h-full object-contain"
-                    src={images[character.id]}
+                    src={iconPath(character.id)}
                 />
 
             </div>

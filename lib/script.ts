@@ -41,6 +41,11 @@ export interface RoleTranslator {
     has(key: string): boolean,
 }
 
+// Role icons are downloaded to public/icons by bin/fetch-game-data.ts
+export function iconPath(roleId: string): string {
+    return `/icons/${roleId}.webp`;
+}
+
 const rolesById = new Map(roles.map((role) => [role.id, role]));
 
 // Script ids may contain underscores (fortune_teller), the role data and translations don't (fortuneteller).
