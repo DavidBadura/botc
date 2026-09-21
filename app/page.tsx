@@ -1,4 +1,4 @@
-import script from "@/data/scripts/uncertain_death2.json";
+import script from "@/data/scripts/uncertain_death.json";
 import images from "@/data/images.json";
 import Image from "next/image";
 import Color, {ColorInstance} from "color";
@@ -47,7 +47,7 @@ const firstNightOrder = [
     "kazali",
     "apprentice",
     "barista",
-    "bureaucrate",
+    "bureaucrat",
     "thief",
     "boffin",
     "philosopher",
@@ -55,7 +55,7 @@ const firstNightOrder = [
     "poppygrower",
     "yaggababble",
     "magician",
-    "minioninfo",
+    "minion info",
     "snitch",
     "lunatic",
     "summoner",
@@ -125,7 +125,7 @@ const otherNightOrder = [
     "wraith",
     "barista",
     "bonecollector",
-    "bureaucrate",
+    "bureaucrat",
     "harlot",
     "thief",
     "philosopher",
@@ -136,7 +136,7 @@ const otherNightOrder = [
     "xaan",
     "poisoner",
     "courtier",
-    "inkeeper",
+    "innkeeper",
     "wizard",
     "gambler",
     "acrobat",
@@ -146,7 +146,7 @@ const otherNightOrder = [
     "devilsadvocate",
     "witch",
     "cerenovus",
-    "pit-hag",
+    "pithag",
     "fearmonger",
     "harpy",
     "mezepheles",
