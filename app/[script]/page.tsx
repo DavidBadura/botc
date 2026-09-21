@@ -277,7 +277,7 @@ function firstNight(script: Script): StepData[] {
 
 
         const character = findCharacters(script).find((s) => s.id === id);
-        if (character) {
+        if (character && character.team !== 'traveller') {
             result.push({
                 image: images[character.id],
                 title: character.name,
@@ -318,7 +318,7 @@ function otherNight(script: Script): StepData[] {
         }
 
         const character = findCharacters(script).find((s) => s.id === id);
-        if (character) {
+        if (character && character.team !== 'traveller') {
             result.push({
                 image: images[character.id],
                 title: character.name,
