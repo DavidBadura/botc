@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "translations": "node bin/fetch-translations.ts",
-    "roles": "node bin/fetch-roles.ts"
+    "game-data": "node bin/fetch-game-data.ts"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2",

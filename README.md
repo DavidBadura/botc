@@ -20,8 +20,9 @@ pnpm translations de fr  # other languages
 
 Scripts are imported in the format of the official script tool (`data/scripts/*.json`, only the role ids).
 Team and English name come from `data/roles.json` and the texts from the translations, both resolved at
-runtime in `lib/script.ts`. To update the role data:
+runtime in `lib/script.ts`. The jinxes are in `data/jinxes.json` (the German texts are in the translations).
+To update the roles and jinxes:
 
 ```
-pnpm roles
+pnpm game-data
 ```
