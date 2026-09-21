@@ -3,6 +3,7 @@ import images from "@/data/images.json";
 import Image from "next/image";
 import Color, {ColorInstance} from "color";
 import type { Metadata } from 'next';
+import {useTranslations} from "next-intl";
 
 type Script = Item[];
 
@@ -16,6 +17,7 @@ type Meta = {
 type Character = {
     id: string,
     name: string,
+    englishName: string,
     team: Team,
     ability: string,
     first?: string,
@@ -369,7 +371,7 @@ function highlight(text: string) {
         .replace(/dämon|schergen|scherge|böse/gi, '<span class="text-red-800 font-medium">$&</span>');
 
     text = text.replace(/__PLACEHOLDER_(\d+)__/g, (_, i) => {
-        return `<span class="font-semibold">${placeholders[i]}</span>`;
+        return `<span class="uppercase">${placeholders[i]}</span>`;
     });
 
     return text;
@@ -384,7 +386,7 @@ export function generateMetadata(): Metadata {
     };
 }
 
-export default function Page() {
+export default async function Page() {
     const s = script as Script;
     const meta = findMeta(s);
 
@@ -537,6 +539,10 @@ function Divider() {
 }
 
 function Character({character}: { character: Character }) {
+    'use client'
+
+    const t = useTranslations();
+
     return (
         <div className="flex items-center gap-2">
             <div className="w-20 h-20 shrink-0">
@@ -552,7 +558,7 @@ function Character({character}: { character: Character }) {
                 <h3 className={classNames(
                     'font-bold text-sm font-text',
                     teamTextColors[character.team]
-                )}>{character.name}</h3>
+                )}>{character.name} {character.name !== character.englishName ? `(${character.englishName})` : ''}</h3>
                 <p className="font-text" dangerouslySetInnerHTML={{__html: highlight(character.ability || '')}}></p>
             </div>
         </div>
