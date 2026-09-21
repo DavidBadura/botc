@@ -1,5 +1,6 @@
 import nightSheet from "@/data/nightsheet.json";
 import Image from "next/image";
+import {Fragment} from "react";
 import type { Metadata } from 'next';
 import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
@@ -39,6 +40,25 @@ function findCharacters(script: Script): ScriptCharacter[] {
 
 function findCharactersByTeam(script: Script, team: Team): ScriptCharacter[] {
     return findCharacters(script).filter((s) => s.team === team);
+}
+
+const teamSections: { title: string, team: Team }[] = [
+    {title: 'Bürger', team: 'townsfolk'},
+    {title: 'Außenseiter', team: 'outsider'},
+    {title: 'Schergen', team: 'minion'},
+    {title: 'Dämonen', team: 'demon'},
+];
+
+// more rows than fit on the first page with the normal sizes
+const maxNormalRows = 12;
+
+function isCompact(script: Script): boolean {
+    const rows = teamSections.reduce(
+        (sum, {team}) => sum + Math.ceil(findCharactersByTeam(script, team).length / 2),
+        0
+    );
+
+    return rows > maxNormalRows;
 }
 
 type Night = 'first' | 'other';
@@ -160,6 +180,7 @@ export default async function Page({params}: Props) {
     const jinxes = resolveJinxes(s, await getTranslations('jinxes'));
     const meta = findMeta(s);
     const theme = getTheme(slug);
+    const compact = isCompact(s);
 
     return (
         <>
@@ -170,13 +191,12 @@ export default async function Page({params}: Props) {
                 </div>
                 <div className="flex-1 -ml-16 flex flex-col">
                     <Header meta={meta} theme={theme}/>
-                    <Section title="Bürger" characters={findCharactersByTeam(s, 'townsfolk')}/>
-                    <Divider/>
-                    <Section title="Außenseiter" characters={findCharactersByTeam(s, 'outsider')}/>
-                    <Divider/>
-                    <Section title="Schergen" characters={findCharactersByTeam(s, 'minion')}/>
-                    <Divider/>
-                    <Section title="Dämonen" characters={findCharactersByTeam(s, 'demon')}/>
+                    {teamSections.map(({title, team}, index) => (
+                        <Fragment key={team}>
+                            {index > 0 && <Divider/>}
+                            <Section title={title} characters={findCharactersByTeam(s, team)} compact={compact}/>
+                        </Fragment>
+                    ))}
                     <Footer/>
                 </div>
             </NormalPage>
@@ -280,7 +300,7 @@ function FooterLogo({meta, theme}: { meta: Meta | undefined, theme: Theme }) {
     );
 }
 
-function Section({title, characters}: { title: string, characters: ScriptCharacter[] }) {
+function Section({title, characters, compact}: { title: string, characters: ScriptCharacter[], compact: boolean }) {
     return (
         <section className="flex relative">
             <div className="w-16 shrink-0 flex items-center justify-center">
@@ -290,7 +310,7 @@ function Section({title, characters}: { title: string, characters: ScriptCharact
             </div>
             <div className="grid grid-cols-2 flex-1 px-4">
                 {characters.map((character) => (
-                    <Character key={character.id} character={character}/>
+                    <Character key={character.id} character={character} compact={compact}/>
                 ))}
             </div>
         </section>
@@ -346,10 +366,10 @@ function Divider() {
     );
 }
 
-function Character({character}: { character: ScriptCharacter }) {
+function Character({character, compact}: { character: ScriptCharacter, compact: boolean }) {
     return (
         <div className="flex items-center gap-2">
-            <div className="w-20 h-20 shrink-0">
+            <div className={classNames('shrink-0', compact ? 'w-[4.5rem] h-[4.5rem]' : 'w-20 h-20')}>
                 <img
                     width={64}
                     height={64}
