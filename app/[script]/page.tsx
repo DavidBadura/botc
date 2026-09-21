@@ -6,7 +6,8 @@ import {notFound} from "next/navigation";
 import {getTranslations} from "next-intl/server";
 import {findRawMeta, resolveScript} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
-import {accentColor, patternStyle} from "@/lib/theme";
+import {getTheme} from "@/lib/theme";
+import type {Theme} from "@/lib/theme";
 import type {Meta, Script, ScriptCharacter, Team} from "@/lib/script";
 
 const images: Record<string, string> = imagesJson;
@@ -345,7 +346,7 @@ function highlight(text: string) {
 
     text = text
         .replace(/bürger|außenseiter|guten|gute|gut/gi, '<span class="text-sky-800 font-medium">$&</span>')
-        .replace(/dämon|schergen|scherge|böse/gi, '<span class="text-red-800 font-medium">$&</span>');
+        .replace(/dämon|schergen|scherge|bösen|böse/gi, '<span class="text-red-800 font-medium">$&</span>');
 
     text = text.replace(/__PLACEHOLDER_(\d+)__/g, (_, i) => {
         return `<span class="uppercase">${placeholders[i]}</span>`;
@@ -373,23 +374,25 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
 }
 
 export default async function Page({params}: Props) {
-    const raw = loadScript((await params).script);
+    const slug = (await params).script;
+    const raw = loadScript(slug);
     if (!raw) {
         notFound();
     }
 
     const s = resolveScript(raw, await getTranslations('roles'));
     const meta = findMeta(s);
+    const theme = getTheme(slug);
 
     return (
         <>
             <NormalPage>
                 <div className="w-16 h-full"
-                     style={patternStyle}
+                     style={theme.patternStyle}
                 >
                 </div>
                 <div className="flex-1 -ml-16 flex flex-col">
-                    <Header meta={meta}/>
+                    <Header meta={meta} theme={theme}/>
                     <Section title="Bürger" characters={findCharactersByTeam(s, 'townsfolk')}/>
                     <Divider/>
                     <Section title="Außenseiter" characters={findCharactersByTeam(s, 'outsider')}/>
@@ -400,7 +403,7 @@ export default async function Page({params}: Props) {
                     <Footer/>
                 </div>
             </NormalPage>
-            <FancyPage>
+            <FancyPage theme={theme}>
                 <header className="text-center">
                     <h1
                         className="text-[100px] text-gold px-64 leading-none font-title"
@@ -413,10 +416,10 @@ export default async function Page({params}: Props) {
                 <div className="flex w-full relative">
                     <div className="flex-1 flex flex-col py-4">
                         {firstNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
-                        <FooterLogo meta={meta}/>
+                        <FooterLogo meta={meta} theme={theme}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
-                         style={patternStyle}>
+                         style={theme.patternStyle}>
                         <h2 className="mt-16 text-2xl uppercase font-bold font-fancy [writing-mode:vertical-rl] [text-orientation:upright] text-gold">
                             Erste Nacht
                         </h2>
@@ -427,10 +430,10 @@ export default async function Page({params}: Props) {
                 <div className="flex w-full">
                     <div className="flex flex-col flex-1 py-4">
                         {otherNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
-                        <FooterLogo meta={meta}/>
+                        <FooterLogo meta={meta} theme={theme}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
-                         style={patternStyle}>
+                         style={theme.patternStyle}>
                         <h2 className="mt-16 text-2xl uppercase font-bold font-fancy [writing-mode:vertical-rl] [text-orientation:upright] text-gold">
                             Weitere Nächte
                         </h2>
@@ -451,22 +454,22 @@ function NormalPage({children}: { children: React.ReactNode }) {
     );
 }
 
-function FancyPage({children}: { children: React.ReactNode }) {
+function FancyPage({children, theme}: { children: React.ReactNode, theme: Theme }) {
     return (
         <main
             className="print-page w-[210mm] h-[297mm] mx-auto my-8 bg-white shadow-lg print:shadow-none print:m-0 text-xs text-black flex relative isolate overflow-hidden font-light items-center justify-center"
-            style={patternStyle}
+            style={theme.patternStyle}
         >
             {children}
         </main>
     );
 }
 
-function Header({meta}: { meta: Meta | undefined }) {
+function Header({meta, theme}: { meta: Meta | undefined, theme: Theme }) {
     return (
         <header className="ml-16 mt-8 text-center">
             <img
-                src={`/api/${accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
+                src={`/api/${theme.accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
                 alt={meta?.name || 'Unknown'}
                 className="h-24 mx-auto"
             />
@@ -485,13 +488,13 @@ function Footer() {
     );
 }
 
-function FooterLogo({meta}: { meta: Meta | undefined }) {
+function FooterLogo({meta, theme}: { meta: Meta | undefined, theme: Theme }) {
     if (!meta) return null;
 
     return (
         <footer className="flex-1 self-end flex items-end justify-center">
             <img
-                src={`/api/${accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
+                src={`/api/${theme.accentColor.hex().slice(1)}/title/${encodeURIComponent(meta?.name || 'Unknown')}`}
                 alt={meta?.name || 'Unknown'}
                 className="h-8"
             />

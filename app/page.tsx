@@ -5,7 +5,7 @@ import images from "@/data/images.json";
 import {findRawMeta, resolveScript} from "@/lib/script";
 import type {ScriptCharacter, Team} from "@/lib/script";
 import {listScripts, loadScript} from "@/lib/scripts";
-import {accentColor, patternStyle} from "@/lib/theme";
+import {getTheme} from "@/lib/theme";
 
 export const metadata: Metadata = {
     title: 'Scripts',
@@ -35,7 +35,7 @@ export default async function Home() {
         const meta = findRawMeta(raw);
         const characters = resolved.filter((item): item is ScriptCharacter => item.id !== '_meta');
 
-        return [{slug, name: meta?.name || slug, author: meta?.author, characters}];
+        return [{slug, name: meta?.name || slug, author: meta?.author, characters, theme: getTheme(slug)}];
     });
 
     return (
@@ -51,19 +51,19 @@ export default async function Home() {
             </header>
 
             <ul className="max-w-5xl mx-auto flex flex-wrap justify-center gap-8">
-                {scripts.map(({slug, name, author, characters}) => (
+                {scripts.map(({slug, name, author, characters, theme}) => (
                     <li key={slug} className="w-full sm:w-96">
                         <Link
                             href={`/${slug}`}
                             className="group flex h-full overflow-hidden rounded-sm text-black shadow-xl shadow-black/50 ring-1 ring-gold/40 transition duration-200 hover:-translate-y-1 hover:ring-2 hover:ring-gold hover:shadow-2xl"
                             style={{backgroundImage: 'url(/assets/bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center'}}
                         >
-                            <div className="w-10 shrink-0" style={patternStyle}/>
+                            <div className="w-10 shrink-0" style={theme.patternStyle}/>
                             <div className="flex flex-1 flex-col gap-4 p-5">
                                 <div>
                                     <h2
                                         className="font-title text-3xl leading-tight"
-                                        style={{color: accentColor.hex()}}
+                                        style={{color: theme.accentColor.hex()}}
                                     >
                                         {name}
                                     </h2>
