@@ -1,4 +1,5 @@
 import imagesJson from "@/data/images.json";
+import nightSheet from "@/data/nightsheet.json";
 import Image from "next/image";
 import type { Metadata } from 'next';
 import {useTranslations} from "next-intl";
@@ -32,187 +33,6 @@ const teamBorderColors: Record<Team, string> = {
     loric: 'border-green-600',
 }
 
-const firstNightOrder = [
-    "dusk",
-    "angel",
-    "buddhist",
-    "toymaker",
-    "stormcatcher",
-    "wraith",
-    "lordoftyphon",
-    "kazali",
-    "apprentice",
-    "barista",
-    "bureaucrat",
-    "thief",
-    "boffin",
-    "philosopher",
-    "alchemist",
-    "poppygrower",
-    "yaggababble",
-    "magician",
-    "minion info",
-    "snitch",
-    "lunatic",
-    "summoner",
-    "demon info & bluffs",
-    "king",
-    "sailor",
-    "marionette",
-    "engineer",
-    "preacher",
-    "lilmonsta",
-    "lleech",
-    "xaan",
-    "poisoner",
-    "widow",
-    "courtier",
-    "wizard",
-    "snakecharmer",
-    "godfather",
-    "organgrinder",
-    "devilsadvocate",
-    "eviltwin",
-    "witch",
-    "cerenovus",
-    "fearmonger",
-    "harpy",
-    "mezepheles",
-    "pukka",
-    "pixie",
-    "huntsman",
-    "damsel",
-    "amnesiac",
-    "washerwoman",
-    "librarian",
-    "investigator",
-    "chef",
-    "empath",
-    "fortuneteller",
-    "butler",
-    "grandmother",
-    "clockmaker",
-    "dreamer",
-    "seamstress",
-    "steward",
-    "knight",
-    "noble",
-    "balloonist",
-    "shugenja",
-    "villageidiot",
-    "bountyhunter",
-    "nightwatchman",
-    "cultleader",
-    "spy",
-    "ogre",
-    "highpriestess",
-    "general",
-    "chambermaid",
-    "mathematician",
-    "dawn",
-    "leviathan",
-    "vizier"
-];
-
-const otherNightOrder = [
-    "dusk",
-    "duchess",
-    "toymaker",
-    "wraith",
-    "barista",
-    "bonecollector",
-    "bureaucrat",
-    "harlot",
-    "thief",
-    "philosopher",
-    "poppygrower",
-    "sailor",
-    "engineer",
-    "preacher",
-    "xaan",
-    "poisoner",
-    "courtier",
-    "innkeeper",
-    "wizard",
-    "gambler",
-    "acrobat",
-    "snakecharmer",
-    "monk",
-    "organgrinder",
-    "devilsadvocate",
-    "witch",
-    "cerenovus",
-    "pithag",
-    "fearmonger",
-    "harpy",
-    "mezepheles",
-    "scarletwoman",
-    "summoner",
-    "lunatic",
-    "exorcist",
-    "lycanthrope",
-    "legion",
-    "imp",
-    "zombuul",
-    "pukka",
-    "shabaloth",
-    "po",
-    "fanggu",
-    "nodashii",
-    "vortox",
-    "lordoftyphon",
-    "vigormortis",
-    "ojo",
-    "alhadikhia",
-    "lleech",
-    "lilmonsta",
-    "yaggababble",
-    "kazali",
-    "assassin",
-    "godfather",
-    "gossip",
-    "hatter",
-    "barber",
-    "sweetheart",
-    "plaguedoctor",
-    "sage",
-    "banshee",
-    "professor",
-    "choirboy",
-    "huntsman",
-    "damsel",
-    "amnesiac",
-    "farmer",
-    "tinker",
-    "moonchild",
-    "grandmother",
-    "tor",
-    "ravenkeeper",
-    "empath",
-    "fortuneteller",
-    "undertaker",
-    "dreamer",
-    "flowergirl",
-    "towncrier",
-    "oracle",
-    "seamstress",
-    "juggler",
-    "balloonist",
-    "villageidiot",
-    "king",
-    "bountyhunter",
-    "nightwatchman",
-    "cultleader",
-    "butler",
-    "spy",
-    "highpriestess",
-    "general",
-    "chambermaid",
-    "mathematician",
-    "dawn",
-    "leviathan"
-];
-
 function findMeta(script: Script): Meta | undefined {
     return script.find((s) => s.id === "_meta") as Meta | undefined;
 }
@@ -225,111 +45,71 @@ function findCharactersByTeam(script: Script, team: Team): ScriptCharacter[] {
     return findCharacters(script).filter((s) => s.team === team);
 }
 
-function firstNight(script: Script): StepData[] {
-    const result: StepData[] = [];
+type Night = 'first' | 'other';
 
-    firstNightOrder.forEach((id) => {
-        if (id === "dusk") {
-            result.push({
-                image: "/assets/dusk-icon.png",
-                title: "Abenddämmerung",
-                textColorClass: "text-amber-800",
-                borderColorClass: "border-amber-800",
-                text: "Vergewissere dich, dass alle Augen geschlossen sind. Einige Reisende & Legenden handeln."
-            });
+const amber = {
+    textColorClass: "text-amber-800",
+    borderColorClass: "border-amber-800",
+};
 
-            return;
-        }
-
-        if (id === "minion info") {
-            result.push({
-                image: "/assets/minioninfo.png",
-                title: "Schergen Info",
-                textColorClass: teamTextColors['minion'],
-                borderColorClass: teamBorderColors['minion'],
-                text: "Falls 7 oder mehr Spieler mitspielen, wecke alle Schergen: Zeige das *DIES IST DER DÄMON* Plättchen. Zeige auf den Dämon."
-            });
-
-            return;
-        }
-
-        if (id === "demon info & bluffs") {
-            result.push({
-                image: "/assets/demoninfo.png",
-                title: "Dämon Info",
-                textColorClass: teamTextColors['demon'],
-                borderColorClass: teamBorderColors['demon'],
-                text: "Falls 7 oder mehr Spieler mitspielen, wecke den Dämon: Zeige das *DIES SIND DEINE SCHERGEN* Plättchen. Zeige auf alle Schergen. Zeige das *DIESE CHARAKTERE SIND NICHT IM SPIEL* Plättchen. Zeige 3 nicht im Spiel befindliche gute Charakterplättchen."
-            });
-
-            return;
-        }
-
-        if (id === "dawn") {
-            result.push({
-                image: "/assets/dawn-icon.png",
-                title: "Morgendämmerung",
-                textColorClass: "text-amber-800",
-                borderColorClass: "border-amber-800",
-                text: "Warte ein paar Sekunden. Dann wecke alle Spieler."
-            });
-        }
-
-
-        const character = findCharacters(script).find((s) => s.id === id);
-        if (character && character.team !== 'traveller') {
-            result.push({
-                image: images[character.id],
-                title: character.name,
-                textColorClass: teamTextColors[character.team],
-                borderColorClass: teamBorderColors[character.team],
-                text: character.first || ''
-            });
-        }
-    });
-
-    return result;
+// the steps of the night sheet that are not characters
+function specialSteps(night: Night): Record<string, StepData> {
+    return {
+        dusk: {
+            image: "/assets/dusk-icon.png",
+            title: "Abenddämmerung",
+            ...amber,
+            text: "Vergewissere dich, dass alle Augen geschlossen sind. Einige Reisende & Legenden handeln."
+        },
+        minioninfo: {
+            image: "/assets/minioninfo.png",
+            title: "Schergen Info",
+            textColorClass: teamTextColors['minion'],
+            borderColorClass: teamBorderColors['minion'],
+            text: "Falls 7 oder mehr Spieler mitspielen, wecke alle Schergen: Zeige das *DIES IST DER DÄMON* Plättchen. Zeige auf den Dämon."
+        },
+        demoninfo: {
+            image: "/assets/demoninfo.png",
+            title: "Dämon Info",
+            textColorClass: teamTextColors['demon'],
+            borderColorClass: teamBorderColors['demon'],
+            text: "Falls 7 oder mehr Spieler mitspielen, wecke den Dämon: Zeige das *DIES SIND DEINE SCHERGEN* Plättchen. Zeige auf alle Schergen. Zeige das *DIESE CHARAKTERE SIND NICHT IM SPIEL* Plättchen. Zeige 3 nicht im Spiel befindliche gute Charakterplättchen."
+        },
+        dawn: {
+            image: "/assets/dawn-icon.png",
+            title: "Morgendämmerung",
+            ...amber,
+            text: night === 'first'
+                ? "Warte ein paar Sekunden. Dann wecke alle Spieler."
+                : "Warte ein paar Sekunden. Dann wecke alle Spieler & sage sofort, wer gestorben ist."
+        },
+    };
 }
 
-function otherNight(script: Script): StepData[] {
-    const result: StepData[] = [];
+function nightSteps(script: Script, night: Night): StepData[] {
+    const order = night === 'first' ? nightSheet.firstNight : nightSheet.otherNight;
+    const special = specialSteps(night);
+    // travellers are not part of the night order
+    const characters = findCharacters(script).filter((c) => c.team !== 'traveller');
 
-    otherNightOrder.forEach((id) => {
-        if (id === "dusk") {
-            result.push({
-                image: "/assets/dusk-icon.png",
-                title: "Abenddämmerung",
-                textColorClass: "text-amber-800",
-                borderColorClass: "border-amber-800",
-                text: "Vergewissere dich, dass alle Augen geschlossen sind. Einige Reisende & Legenden handeln."
-            });
-
-            return;
+    return order.flatMap((id): StepData[] => {
+        if (id in special) {
+            return [special[id]];
         }
 
-        if (id === "dawn") {
-            result.push({
-                image: "/assets/dawn-icon.png",
-                title: "Morgendämmerung",
-                textColorClass: "text-amber-800",
-                borderColorClass: "border-amber-800",
-                text: "Warte ein paar Sekunden. Dann wecke alle Spieler & sage sofort, wer gestorben ist."
-            });
+        const character = characters.find((c) => c.id === id);
+        if (!character) {
+            return [];
         }
 
-        const character = findCharacters(script).find((s) => s.id === id);
-        if (character && character.team !== 'traveller') {
-            result.push({
-                image: images[character.id],
-                title: character.name,
-                textColorClass: teamTextColors[character.team],
-                borderColorClass: teamBorderColors[character.team],
-                text: character.other || ''
-            });
-        }
+        return [{
+            image: images[character.id],
+            title: character.name,
+            textColorClass: teamTextColors[character.team],
+            borderColorClass: teamBorderColors[character.team],
+            text: character[night] || ''
+        }];
     });
-
-    return result;
 }
 
 function classNames(...classes: string[]) {
@@ -417,7 +197,7 @@ export default async function Page({params}: Props) {
             <NormalPage>
                 <div className="flex w-full relative">
                     <div className="flex-1 flex flex-col py-4">
-                        {firstNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
+                        {nightSteps(s, 'first').map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
                         <FooterLogo meta={meta} theme={theme}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
@@ -431,7 +211,7 @@ export default async function Page({params}: Props) {
             <NormalPage>
                 <div className="flex w-full">
                     <div className="flex flex-col flex-1 py-4">
-                        {otherNight(s).map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
+                        {nightSteps(s, 'other').map((stepData) => (<Step key={stepData.title} stepData={stepData}/>))}
                         <FooterLogo meta={meta} theme={theme}/>
                     </div>
                     <div className="w-16 h-full justify-center flex"
