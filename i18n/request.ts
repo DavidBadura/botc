@@ -6,6 +6,6 @@ export default getRequestConfig(async () => {
 
     return {
         locale,
-        messages: (await import(`../botc-translations/game/${locale}.json`)).default
+        messages: (await import(`../data/translations/game/${locale}.json`)).default
     };
 });
